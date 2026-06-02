@@ -30,7 +30,7 @@ class NewPostFragment : Fragment() {
     private val viewModel: PostViewModel by activityViewModels()
 
     private var fragmentBinding: FragmentNewPostBinding? = null
-    private var currentImageUri: Uri? = null // Переменная для хранения ссылки на фото
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

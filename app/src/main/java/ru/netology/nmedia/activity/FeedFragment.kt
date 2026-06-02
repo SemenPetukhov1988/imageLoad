@@ -53,7 +53,16 @@ class FeedFragment : Fragment() {
                     Intent.createChooser(intent, getString(R.string.chooser_share_post))
                 startActivity(shareIntent)
             }
+
+            override fun onAttachmentClicket(url: String) {
+                val bandle = Bundle().apply {
+                    putString("image",url)
+
+                }
+                findNavController().navigate(R.id.action_feedFragment_to_imageFragment, bandle)
+            }
         })
+
         binding.list.adapter = adapter
         viewModel.dataState.observe(viewLifecycleOwner) { state ->
             binding.progress.isVisible = state.loading

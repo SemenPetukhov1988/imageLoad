@@ -1,5 +1,7 @@
 package ru.netology.nmedia.dto
 
+import java.io.File
+
 data class Post(
     val id: Long,
     val author: String,
@@ -23,4 +25,5 @@ data class Attachment(
 data class Media(
     val id: String // Поле "id" из ответа сервера
 )
+data class MediaUpload(val file: File)
 

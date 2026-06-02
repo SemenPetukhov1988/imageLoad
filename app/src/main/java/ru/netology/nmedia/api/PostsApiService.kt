@@ -59,7 +59,11 @@ interface PostsApiService {
         @Part file: MultipartBody.Part // Имя части должно быть "file"
     ): Response<Media> // Ожидаем в ответе объект Media
 
+    @Multipart
+    @POST("media")
+    suspend fun upload(@Part media: MultipartBody.Part): Response<Media>
     // --- Получение изображения по ID (GET) ---
+
     @GET("media/{mediaId}")
     suspend fun getImageById(
         @Path("mediaId") mediaId: String // mediaId подставится в URL

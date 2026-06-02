@@ -25,7 +25,7 @@ import ru.netology.nmedia.error.UnknownError
 import java.io.File
 import java.io.IOException
 
-class PostRepositoryImpl(private val dao: PostDao) : PostRepository {
+class PostRepositoryImpl(private val dao: PostDao,) : PostRepository {
     override val data = dao.getAll()
         .map(List<PostEntity>::toDto)
         .flowOn(Dispatchers.Default)
@@ -149,7 +149,7 @@ class PostRepositoryImpl(private val dao: PostDao) : PostRepository {
 
 
     override suspend fun save(post: Post) {
-        Log.d("MyRepoTag", "save(post) called - text only")
+
         try {
             val response = PostsApi.service.save(post)
             if (!response.isSuccessful) {

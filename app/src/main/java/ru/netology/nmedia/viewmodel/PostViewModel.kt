@@ -42,10 +42,10 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     private var isImageSelected = false
 
-    // И немного измени твой метод для установки Uri
+
     fun setSelectedImageUri(uri: Uri?) {
         _selectedImageUri.value = uri
-        // Если uri не null, значит пользователь выбрал картинку
+
         isImageSelected = uri != null
     }
 
@@ -123,32 +123,32 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-    fun save() {
+        fun save() {
 
-        edited.value?.let { postToSave ->
-            _postCreated.value = Unit
-            viewModelScope.launch {
-                try {
-                    // Получаем Uri картинки из LiveData
-                    val imageUri = selectedImageUri.value
-                    if (imageUri == null) {
+            edited.value?.let { postToSave ->
+                _postCreated.value = Unit
+                viewModelScope.launch {
+                    try {
+                        // Получаем Uri картинки из LiveData
+                        val imageUri = selectedImageUri.value
+                        if (imageUri == null) {
 
-                        repository.save(postToSave)
-                    } else {
+                            repository.save(postToSave)
+                        } else {
 
-                        repository.saveWithImage(postToSave, imageUri)
+                            repository.saveWithImage(postToSave, imageUri)
+                        }
+                        _dataState.value = FeedModelState()
+
+                    } catch (e: Exception) {
+                        _dataState.value = FeedModelState(error = true)
                     }
-                    _dataState.value = FeedModelState()
-
-                } catch (e: Exception) {
-                    _dataState.value = FeedModelState(error = true)
                 }
+
             }
 
+            edited.value = empty
         }
-
-        edited.value = empty
-    }
 
     fun edit(post: Post) {
         edited.value = post

@@ -3,6 +3,7 @@ package ru.netology.nmedia.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,9 @@ interface OnInteractionListener {
     fun onEdit(post: Post) {}
     fun onRemove(post: Post) {}
     fun onShare(post: Post) {}
+
+    fun onAttachmentClicket(url: String)
+
 }
 
 class PostsAdapter(
@@ -51,7 +55,9 @@ class PostViewHolder(
                 imagePost.load("${BuildConfig.BASE_URL}/media/${post.attachment.url}")
             }
 
-
+            imagePost.setOnClickListener {
+                onInteractionListener.onAttachmentClicket("${BuildConfig.BASE_URL}/media/${post.attachment?.url}")
+            }
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.options_post)

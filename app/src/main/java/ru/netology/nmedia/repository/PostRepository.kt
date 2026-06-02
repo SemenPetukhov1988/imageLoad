@@ -18,6 +18,8 @@ interface PostRepository {
 
     suspend fun uploadImage(imageUri: Uri): Media
 
+
+
     suspend fun removeById(id: Long)
     suspend fun likeById(id: Long)
 }
